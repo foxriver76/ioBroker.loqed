@@ -1,160 +1,171 @@
 {
-    "common": {
-        "name": "loqed",
-        "version": "0.0.1",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "title": "LOQED",
-        "titleLang": {
-            "en": "LOQED",
-            "de": "GESUCHT",
-            "ru": "LOQED",
-            "pt": "LOQED",
-            "nl": "LOQED",
-            "fr": "LOQÉ",
-            "it": "LOQED",
-            "es": "LOQED",
-            "pl": "LOQED",
-            "zh-cn": "LOQED"
-        },
-        "desc": {
-            "en": "Control LOQED smart locks",
-            "de": "Steuern Sie LOQED Smart Locks",
-            "ru": "Управляйте умными замками LOQED",
-            "pt": "Controlar fechaduras inteligentes LOQED",
-            "nl": "Bedien LOQED slimme sloten",
-            "fr": "Contrôlez les serrures intelligentes LOQED",
-            "it": "Controlla le serrature intelligenti LOQED",
-            "es": "Controle las cerraduras inteligentes LOQED",
-            "pl": "Sterowanie inteligentnymi zamkami LOQED",
-            "zh-cn": "控制 LOQED 智能锁"
-        },
-        "authors": ["foxriver76 <moritz.heusinger@gmail.com>"],
-        "keywords": ["LOQED", "smart lock", "alarm"],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "build/main.js",
-        "icon": "loqed.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/foxriver76/ioBroker.loqed/main/admin/loqed.png",
-        "readme": "https://github.com/foxriver76/ioBroker.loqed/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "iot-systems",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.3.22"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.13"
-            }
-        ]
+  "common": {
+    "name": "loqed",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
     },
-    "native": {
-        "loqedConfig": "",
-        "port": 9005,
-        "callbackUrl": "http://192.168.178.22"
+    "title": "LOQED",
+    "titleLang": {
+      "en": "LOQED",
+      "de": "GESUCHT",
+      "ru": "LOQED",
+      "pt": "LOQED",
+      "nl": "LOQED",
+      "fr": "LOQÉ",
+      "it": "LOQED",
+      "es": "LOQED",
+      "pl": "LOQED",
+      "zh-cn": "LOQED"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "name": "Connected to lock",
-                "role": "indicator.connected",
-                "type": "boolean",
-                "write": false,
-                "read": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "lockMotor",
-            "type": "channel",
-            "common": {
-                "name": "Control the lock"
-            },
-            "native": {}
-        },
-        {
-            "_id": "lockMotor.currentPosition",
-            "type": "state",
-            "common": {
-                "name": "Current position",
-                "role": "text",
-                "type": "string",
-                "write": false,
-                "read": true,
-                "states": [
-
-                ]
-            },
-            "native": {}
-        },
-        {
-            "_id": "lockMotor.goToPosition",
-            "type": "state",
-            "common": {
-                "name": "Go to position",
-                "role": "text",
-                "type": "string",
-                "write": true,
-                "read": true,
-                "states": [
-
-                ]
-            },
-            "native": {}
-        },
-        {
-            "_id": "lockStatus",
-            "type": "channel",
-            "common": {
-                "name": "Status of the lock"
-            },
-            "native": {}
-        },
-        {
-            "_id": "lockStatus.batteryPercentage",
-            "type": "state",
-            "common": {
-                "name": "Battery level",
-                "role": "level",
-                "type": "number",
-                "write": true,
-                "read": true,
-                "unit": "%"
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Control LOQED smart locks",
+      "de": "Steuern Sie LOQED Smart Locks",
+      "ru": "Управляйте умными замками LOQED",
+      "pt": "Controlar fechaduras inteligentes LOQED",
+      "nl": "Bedien LOQED slimme sloten",
+      "fr": "Contrôlez les serrures intelligentes LOQED",
+      "it": "Controlla le serrature intelligenti LOQED",
+      "es": "Controle las cerraduras inteligentes LOQED",
+      "pl": "Sterowanie inteligentnymi zamkami LOQED",
+      "zh-cn": "控制 LOQED 智能锁"
+    },
+    "authors": [
+      "foxriver76 <moritz.heusinger@gmail.com>"
+    ],
+    "keywords": [
+      "LOQED",
+      "smart lock",
+      "alarm"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "loqed.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/foxriver76/ioBroker.loqed/main/admin/loqed.png",
+    "readme": "https://github.com/foxriver76/ioBroker.loqed/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
     ]
+  },
+  "native": {
+    "loqedConfig": "",
+    "port": 9005,
+    "callbackUrl": "http://192.168.178.22"
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": "Connected to lock",
+        "role": "indicator.connected",
+        "type": "boolean",
+        "write": false,
+        "read": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockMotor",
+      "type": "channel",
+      "common": {
+        "name": "Control the lock"
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockMotor.currentPosition",
+      "type": "state",
+      "common": {
+        "name": "Current position",
+        "role": "text",
+        "type": "string",
+        "write": false,
+        "read": true,
+        "states": [
+          "DAY_LOCK",
+          "OPEN",
+          "NIGHT_LOCK",
+          "UNKNOWN"
+        ]
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockMotor.goToPosition",
+      "type": "state",
+      "common": {
+        "name": "Go to position",
+        "role": "text",
+        "type": "string",
+        "write": true,
+        "read": true,
+        "states": [
+          "DAY_LOCK",
+          "OPEN",
+          "NIGHT_LOCK"
+        ]
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockStatus",
+      "type": "channel",
+      "common": {
+        "name": "Status of the lock"
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockStatus.batteryPercentage",
+      "type": "state",
+      "common": {
+        "name": "Battery level",
+        "role": "level",
+        "type": "number",
+        "write": true,
+        "read": true,
+        "unit": "%"
+      },
+      "native": {}
+    }
+  ]
 }

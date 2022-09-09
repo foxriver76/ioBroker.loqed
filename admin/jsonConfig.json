@@ -63,6 +63,7 @@
             "type": "text",
             "label": "loqedConfig",
             "newLine": true,
+            "validator": "!!JSON.parse(data.loqedConfig).lock_key_local_id",
             "help": {
                 "en": "Go to the linked website and create an API token, then copy the Integration Information at the bottom of the new API key",
                 "de": "Gehen Sie auf die verlinkte Website und erstellen Sie ein API-Token, dann kopieren Sie die Integrationsinformationen am unteren Rand des neuen API-Schlüssels",

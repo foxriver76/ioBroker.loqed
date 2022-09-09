@@ -52,8 +52,9 @@ class Loqed extends utils.Adapter {
     this.loqedClient.on("STATE_CHANGED", (state) => {
       this.log.info(`State changed to ${state}`);
     });
-    this.loqedClient.on("GO_TO_STATE", (state) => {
+    this.loqedClient.on("GO_TO_STATE", async (state) => {
       this.log.info(`Lock tries to go to ${state}`);
+      await this.setStateAsync("lockMotor.goToPosition", state, true);
     });
     this.loqedClient.on("UNKNOWN_EVENT", (data) => {
       this.log.warn(`Unknown event: ${JSON.stringify(data)}`);
@@ -71,8 +72,7 @@ class Loqed extends utils.Adapter {
       });
       await this.setStateAsync("info.connection", !!status.lock_online, true);
       await this.setStateAsync("lockStatus.batteryPercentage", status.battery_percentage, true);
-      await this.setStateAsync("lockMotor.goToPosition", status.bolt_state, true);
-      await this.setStateAsync("lockMotor.currentPosition", status.bolt_state, true);
+      await this.setStateAsync("lockMotor.currentPosition", status.bolt_state.toUpperCase(), true);
     } catch (e) {
       this.log.error(`Could not sync status: ${e.message}`);
     }
@@ -80,6 +80,7 @@ class Loqed extends utils.Adapter {
   async ensureWebhookRegistered() {
     try {
       const webhooks = await this.loqedClient.listWebhooks();
+      this.log.debug(`Checking if webhook for "${this.config.callbackUrl}" is registered`);
       const webhookRegistered = webhooks.find((entry) => entry.url === this.config.callbackUrl);
       if (webhookRegistered) {
         this.log.info(`Webhook for our application already registered with id ${webhookRegistered.id}`);
