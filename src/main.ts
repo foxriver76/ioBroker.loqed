@@ -1,6 +1,19 @@
 import * as utils from '@iobroker/adapter-core';
 import { LOQED } from 'loqed-api';
 
+/**
+ * Config passed from website to adapter
+ */
+interface LOQEDConfig {
+    lock_id: string;
+    lock_key_local_id: number;
+    lock_key_key: string;
+    backend_key: string;
+    bridge_key: string;
+    bridge_ip: string;
+    bridge_mdns_hostname: string;
+}
+
 class Loqed extends utils.Adapter {
     private loqedClient: LOQED | undefined;
 
@@ -18,7 +31,7 @@ class Loqed extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     private async onReady(): Promise<void> {
-        let loqedConfig: Record<string, any>;
+        let loqedConfig: LOQEDConfig;
         try {
             loqedConfig = JSON.parse(this.config.loqedConfig);
         } catch {
