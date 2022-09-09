@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "loqed",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "connection handling implemented\nsome bugs fixed\nbattery level updates implemented",
+        "de": "anschlusshandling realisiert\neinige fehler behoben\nbatteriestandsaktualisierungen implementiert",
+        "ru": "обработка соединения реализована\nнекоторые ошибки исправлены\nобновления уровня батареи реализованы",
+        "pt": "manipulação de conexão implementada\nalguns bugs corrigidos\natualizações de nível de bateria implementadas",
+        "nl": "verbindingsconnectie uitgevoerd\nwat insecten gemaakt\nquality over quantity (qoq) releases vertaling:",
+        "fr": "manutention des connexions\nquelques bugs corrigés\nmises à jour du niveau de la batterie",
+        "it": "gestione della connessione implementata\nalcuni bug fissi\naggiornamenti livello batteria implementato",
+        "es": "aplicación de la gestión de las conexiones\nalgunos errores fijos\nactualizaciones de nivel de batería aplicadas",
+        "pl": "obsługa połączeń\ntrąbka\naktualizacja poziomów baterii",
+        "zh-cn": "b. 执行的有关事项\n某些固定钢\n执行的电池级更新"
+      },
       "0.1.2": {
         "en": "io-package optimizations",
         "de": "io-paketoptimierungen",

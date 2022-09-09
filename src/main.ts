@@ -43,13 +43,27 @@ class Loqed extends utils.Adapter {
         await this.ensureWebhookRegistered();
         await this.syncStatus();
 
-        this.loqedClient.on('STATE_CHANGED', state => {
+        this.loqedClient.on('STATE_CHANGED', async state => {
             this.log.info(`State changed to ${state}`);
+            await this.setStateChangedAsync('info.connection', true, true);
+            await this.setStateAsync('lockMotor.currentPosition', state, true);
         });
 
         this.loqedClient.on('GO_TO_STATE', async state => {
             this.log.info(`Lock tries to go to ${state}`);
+            await this.setStateChangedAsync('info.connection', true, true);
             await this.setStateAsync('lockMotor.goToPosition', state, true);
+        });
+
+        this.loqedClient.on('BATTERY_LEVEL', async level => {
+            this.log.info(`Battery level received: ${level}`);
+            await this.setStateChangedAsync('info.connection', true, true);
+            await this.setStateAsync('lockStatus.batteryPercentage', level, true);
+        });
+
+        this.loqedClient.on('BLE_STRENGTH', async level => {
+            this.log.info(`BLE strength received: ${level}`);
+            await this.setStateAsync('info.connection', level !== -1, true);
         });
 
         this.loqedClient.on('UNKNOWN_EVENT', data => {
@@ -109,6 +123,8 @@ class Loqed extends utils.Adapter {
      */
     private async onUnload(callback: () => void): Promise<void> {
         try {
+            await this.setStateAsync('info.connection', false, true);
+
             if (this.loqedClient) {
                 await this.loqedClient.stopServer();
             }
