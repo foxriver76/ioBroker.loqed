@@ -26,13 +26,13 @@ class Loqed extends utils.Adapter {
             return;
         }
 
-        this.subscribeStates('*');
+        this.subscribeStates('lockMotor.goToPosition');
 
         this.config.port = await this.getPortAsync(this.config.port);
 
         this.loqedClient = new LOQED({
             bridgeKey: loqedConfig.bridge_key,
-            apiKey: loqedConfig.backend_key,
+            apiKey: loqedConfig.lock_key_key,
             ip: loqedConfig.bridge_ip,
             lockId: loqedConfig.lock_key_local_id,
             port: this.config.port
@@ -120,10 +120,41 @@ class Loqed extends utils.Adapter {
     /**
      * Is called if a subscribed state changes
      */
-    private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-        if (!state || state.ack) {
-            // state deleted or already acked
+    private async onStateChange(id: string, state: ioBroker.State | null | undefined): Promise<void> {
+        if (!state || state.ack || !state.val || !this.loqedClient) {
+            // state deleted or already acked or no active loqedClient
             return;
+        }
+
+        switch (state.val) {
+            case 'DAY_LOCK':
+                this.log.debug('Latch lock');
+                try {
+                    await this.loqedClient.latchLock();
+                } catch (e: any) {
+                    this.log.error(`Could not latch lock: ${e.message}`);
+                }
+                break;
+            case 'NIGHT_LOCK':
+                this.log.debug('Lock lock');
+
+                try {
+                    await this.loqedClient.lockLock();
+                } catch (e: any) {
+                    this.log.error(`Could not lock lock: ${e.message}`);
+                }
+                break;
+            case 'OPEN':
+                this.log.debug('Open lock');
+
+                try {
+                    await this.loqedClient.openLock();
+                } catch (e: any) {
+                    this.log.error(`Could not open lock: ${e.message}`);
+                }
+                break;
+            default:
+                this.log.warn(`Unknown state change: "${id}": ${state.val}`);
         }
     }
 }

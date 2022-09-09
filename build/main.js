@@ -37,11 +37,11 @@ class Loqed extends utils.Adapter {
       this.log.error(`Could not parse LOQED config (${this.config.loqedConfig}), please ensure it is valid`);
       return;
     }
-    this.subscribeStates("*");
+    this.subscribeStates("lockMotor.goToPosition");
     this.config.port = await this.getPortAsync(this.config.port);
     this.loqedClient = new import_loqed_api.LOQED({
       bridgeKey: loqedConfig.bridge_key,
-      apiKey: loqedConfig.backend_key,
+      apiKey: loqedConfig.lock_key_key,
       ip: loqedConfig.bridge_ip,
       lockId: loqedConfig.lock_key_local_id,
       port: this.config.port
@@ -102,9 +102,37 @@ class Loqed extends utils.Adapter {
       callback();
     }
   }
-  onStateChange(id, state) {
-    if (!state || state.ack) {
+  async onStateChange(id, state) {
+    if (!state || state.ack || !state.val || !this.loqedClient) {
       return;
+    }
+    switch (state.val) {
+      case "DAY_LOCK":
+        this.log.debug("Latch lock");
+        try {
+          await this.loqedClient.latchLock();
+        } catch (e) {
+          this.log.error(`Could not latch lock: ${e.message}`);
+        }
+        break;
+      case "NIGHT_LOCK":
+        this.log.debug("Lock lock");
+        try {
+          await this.loqedClient.lockLock();
+        } catch (e) {
+          this.log.error(`Could not lock lock: ${e.message}`);
+        }
+        break;
+      case "OPEN":
+        this.log.debug("Open lock");
+        try {
+          await this.loqedClient.openLock();
+        } catch (e) {
+          this.log.error(`Could not open lock: ${e.message}`);
+        }
+        break;
+      default:
+        this.log.warn(`Unknown state change: "${id}": ${state.val}`);
     }
   }
 }

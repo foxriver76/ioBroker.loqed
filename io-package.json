@@ -161,7 +161,7 @@
         "name": "Battery level",
         "role": "level",
         "type": "number",
-        "write": true,
+        "write": false,
         "read": true,
         "unit": "%"
       },
