@@ -1,16 +1,81 @@
 {
-    "i18n": true,
+    "i18n": {
+        "port": {
+            "en": "Port of the local server",
+            "de": "Port des lokalen Servers",
+            "ru": "Порт локального сервера",
+            "pt": "Porto do servidor local",
+            "nl": "Port of the lokale server",
+            "fr": "Port du serveur local",
+            "it": "Porta del server locale",
+            "es": "Puerto del servidor local",
+            "pl": "Port lokalnego serwera",
+            "zh-cn": "当地服务器港"
+        },
+        "callbackUrl": {
+            "en": "Callback URL",
+            "de": "Callback URL",
+            "ru": "Обратный звонок URL",
+            "pt": "URL de chamada",
+            "nl": "Callback URL",
+            "fr": "Callback URL",
+            "it": "URL del Callback",
+            "es": "URL de llamada",
+            "pl": "Callback URL",
+            "zh-cn": "要求"
+        },
+        "loqedConfig": {
+            "en": "LOQED Lock Configuration",
+            "de": "LOQED Schloss Konfiguration",
+            "ru": "LOQED Конфигурация замка",
+            "pt": "Configuração de bloqueio LOQED",
+            "nl": "Vertaling:",
+            "fr": "Configuration de verrouillage LOQED",
+            "it": "Configurazione di blocco LOQED",
+            "es": "Configuración de bloqueo LOQED",
+            "pl": "LOQED Lock Configuration (ang.)",
+            "zh-cn": "LOQEDLock Configuration"
+        }
+    },
     "type": "panel",
     "items": {
-        "option1": {
-            "type": "checkbox",
-            "label": "option1",
-            "newLine": true
-        },
-        "option2": {
+        "callbackUrl": {
             "type": "text",
-            "label": "option2",
-            "newLine": true
+            "label": "callbackUrl",
+            "help": {
+                "en": "The URL of your ioBroker",
+                "de": "Die URL Ihres ioBroker",
+                "ru": "URL вашего ioBroker",
+                "pt": "A URL do seu ioBroker",
+                "nl": "De URL van je iobroker",
+                "fr": "L'URL de votre ioBroker",
+                "it": "L'URL del tuo ioBroker",
+                "es": "La URL de tu ioBroker",
+                "pl": "URL of your ioBroker (ang.)",
+                "zh-cn": "你的io Broker"
+            }
+        },
+        "port": {
+            "type": "number",
+            "label": "port"
+        },
+        "loqedConfig": {
+            "type": "text",
+            "label": "loqedConfig",
+            "newLine": true,
+            "help": {
+                "en": "Go to the linked website and create an API token, then copy the Integration Information at the bottom of the new API key",
+                "de": "Gehen Sie auf die verlinkte Website und erstellen Sie ein API-Token, dann kopieren Sie die Integrationsinformationen am unteren Rand des neuen API-Schlüssels",
+                "ru": "Перейдите на связанный сайт и создайте токен API, затем скопируйте Интеграционную информацию внизу нового ключа API",
+                "pt": "Ir para o site vinculado e criar um token API, em seguida, copiar as informações de integração na parte inferior da nova chave API",
+                "nl": "Ga naar de gelinkte website en creëer een API token, dan kopieer de Integratie Informatie op de bodem van de nieuwe API sleutel",
+                "fr": "Allez sur le site Web lié et créez un jeton API, puis copiez l'information d'intégration au bas de la nouvelle clé API",
+                "it": "Vai al sito web collegato e crea un token API, quindi copia le informazioni di integrazione in fondo alla nuova chiave API",
+                "es": "Vaya al sitio web enlazado y cree un token de API, luego copie la Información de Integración en la parte inferior de la nueva clave de API",
+                "pl": "Go to the connected website i tworzy token API, następnie kopiuje Informacje Informacyjne na dole nowego klucza API",
+                "zh-cn": "与相关网站合作,创建一个单一的消费品牌,然后在新品种协会的关键底线上复制一体化信息。"
+            },
+            "helpLink": "https://app.loqed.com/API-Config/"
         }
     }
 }

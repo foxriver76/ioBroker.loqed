@@ -73,9 +73,88 @@
     "native": {
         "loqedConfig": "",
         "port": 9005,
-        "callbackUrl": "http://192.168.178.22:9005/"
+        "callbackUrl": "http://192.168.178.22"
     },
     "objects": [],
     "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "name": "Connected to lock",
+                "role": "indicator.connected",
+                "type": "boolean",
+                "write": false,
+                "read": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "lockMotor",
+            "type": "channel",
+            "common": {
+                "name": "Control the lock"
+            },
+            "native": {}
+        },
+        {
+            "_id": "lockMotor.currentPosition",
+            "type": "state",
+            "common": {
+                "name": "Current position",
+                "role": "text",
+                "type": "string",
+                "write": false,
+                "read": true,
+                "states": [
+
+                ]
+            },
+            "native": {}
+        },
+        {
+            "_id": "lockMotor.goToPosition",
+            "type": "state",
+            "common": {
+                "name": "Go to position",
+                "role": "text",
+                "type": "string",
+                "write": true,
+                "read": true,
+                "states": [
+
+                ]
+            },
+            "native": {}
+        },
+        {
+            "_id": "lockStatus",
+            "type": "channel",
+            "common": {
+                "name": "Status of the lock"
+            },
+            "native": {}
+        },
+        {
+            "_id": "lockStatus.batteryPercentage",
+            "type": "state",
+            "common": {
+                "name": "Battery level",
+                "role": "level",
+                "type": "number",
+                "write": true,
+                "read": true,
+                "unit": "%"
+            },
+            "native": {}
+        }
     ]
 }

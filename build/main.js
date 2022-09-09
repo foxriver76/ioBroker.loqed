@@ -18,6 +18,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
+var import_loqed_api = require("loqed-api");
 class Loqed extends utils.Adapter {
   constructor(options = {}) {
     super({
@@ -29,41 +30,80 @@ class Loqed extends utils.Adapter {
     this.on("unload", this.onUnload.bind(this));
   }
   async onReady() {
-    this.setState("info.connection", false, true);
-    this.log.info("config option1: " + this.config.option1);
-    this.log.info("config option2: " + this.config.option2);
-    await this.setObjectNotExistsAsync("testVariable", {
-      type: "state",
-      common: {
-        name: "testVariable",
-        type: "boolean",
-        role: "indicator",
-        read: true,
-        write: true
-      },
-      native: {}
-    });
-    this.subscribeStates("testVariable");
-    await this.setStateAsync("testVariable", true);
-    await this.setStateAsync("testVariable", { val: true, ack: true });
-    await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
-    let result = await this.checkPasswordAsync("admin", "iobroker");
-    this.log.info("check user admin pw iobroker: " + result);
-    result = await this.checkGroupAsync("admin", "admin");
-    this.log.info("check group user admin group admin: " + result);
-  }
-  onUnload(callback) {
+    let loqedConfig;
     try {
-      callback();
+      loqedConfig = JSON.parse(this.config.loqedConfig);
+    } catch {
+      this.log.error(`Could not parse LOQED config (${this.config.loqedConfig}), please ensure it is valid`);
+      return;
+    }
+    this.subscribeStates("*");
+    this.config.port = await this.getPortAsync(this.config.port);
+    this.loqedClient = new import_loqed_api.LOQED({
+      bridgeKey: loqedConfig.bridge_key,
+      apiKey: loqedConfig.backend_key,
+      ip: loqedConfig.bridge_ip,
+      lockId: loqedConfig.lock_key_local_id,
+      port: this.config.port
+    });
+    this.config.callbackUrl = `${this.config.callbackUrl}:${this.config.port}/`;
+    await this.ensureWebhookRegistered();
+    await this.syncStatus();
+    this.loqedClient.on("STATE_CHANGED", (state) => {
+      this.log.info(`State changed to ${state}`);
+    });
+    this.loqedClient.on("GO_TO_STATE", (state) => {
+      this.log.info(`Lock tries to go to ${state}`);
+    });
+    this.loqedClient.on("UNKNOWN_EVENT", (data) => {
+      this.log.warn(`Unknown event: ${JSON.stringify(data)}`);
+    });
+  }
+  async syncStatus() {
+    try {
+      const status = await this.loqedClient.getStatus();
+      await this.extendForeignObjectAsync(this.namespace, {
+        type: "device",
+        common: {
+          name: "LOQED lock"
+        },
+        native: status
+      });
+      await this.setStateAsync("info.connection", !!status.lock_online, true);
+      await this.setStateAsync("lockStatus.batteryPercentage", status.battery_percentage, true);
+      await this.setStateAsync("lockMotor.goToPosition", status.bolt_state, true);
+      await this.setStateAsync("lockMotor.currentPosition", status.bolt_state, true);
     } catch (e) {
+      this.log.error(`Could not sync status: ${e.message}`);
+    }
+  }
+  async ensureWebhookRegistered() {
+    try {
+      const webhooks = await this.loqedClient.listWebhooks();
+      const webhookRegistered = webhooks.find((entry) => entry.url === this.config.callbackUrl);
+      if (webhookRegistered) {
+        this.log.info(`Webhook for our application already registered with id ${webhookRegistered.id}`);
+      } else {
+        this.log.info("No matching webhook found, registering one now");
+        await this.loqedClient.registerWebhook(this.config.callbackUrl);
+      }
+    } catch (e) {
+      this.log.error(`Could not ensure, that webhook is registered: ${e.message}`);
+    }
+  }
+  async onUnload(callback) {
+    try {
+      if (this.loqedClient) {
+        await this.loqedClient.stopServer();
+      }
+      callback();
+    } catch {
       callback();
     }
   }
   onStateChange(id, state) {
-    if (state) {
-      this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-    } else {
-      this.log.info(`state ${id} deleted`);
+    if (!state || state.ack) {
+      return;
     }
   }
 }
