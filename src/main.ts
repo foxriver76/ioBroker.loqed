@@ -97,6 +97,7 @@ class Loqed extends utils.Adapter {
             } else {
                 this.log.info('No matching webhook found, registering one now');
                 await this.loqedClient!.registerWebhook(this.config.callbackUrl);
+                this.log.info('Webhook sucessfully registered');
             }
         } catch (e: any) {
             this.log.error(`Could not ensure, that webhook is registered: ${e.message}`);
