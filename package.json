@@ -1,6 +1,6 @@
 {
   "name": "iobroker.loqed",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Control LOQED smart locks",
   "author": {
     "name": "foxriver76",
