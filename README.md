@@ -19,6 +19,9 @@ Control LOQED smart locks
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.1 (2022-09-10)
+* (foxriver76) ensure library is updated
+
 ### 0.2.0 (2022-09-09)
 * (foxriver76) connection handling implemented
 * (foxriver76) some bugs fixed

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "loqed",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "ensure library is updated",
+        "de": "sicherstellen, dass die bibliothek aktualisiert wird",
+        "ru": "обеспечить обновление библиотеки",
+        "pt": "garantir que a biblioteca é atualizada",
+        "nl": "de bibliotheek is geüpload",
+        "fr": "veiller à ce que la bibliothèque soit mise à jour",
+        "it": "assicurarsi che la libreria sia aggiornata",
+        "es": "asegurar que la biblioteca se actualice",
+        "pl": "zawartość biblioteki jest aktualizowana",
+        "zh-cn": "确保图书馆更新"
+      },
       "0.2.0": {
         "en": "connection handling implemented\nsome bugs fixed\nbattery level updates implemented",
         "de": "anschlusshandling realisiert\neinige fehler behoben\nbatteriestandsaktualisierungen implementiert",
