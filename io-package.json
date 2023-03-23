@@ -206,6 +206,52 @@
       "native": {}
     },
     {
+      "_id": "lockMotor.homekitLockCurrentState",
+      "type": "state",
+      "common": {
+        "name": "Current position as HomeKit value",
+        "role": "state",
+        "type": "number",
+        "write": false,
+        "read": true,
+        "states": { 
+          "0": "unlock/unsecured",
+          "1": "lock/secured",
+          "2": "jammed",
+          "3": "unknown"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockMotor.homekitLockTargetState",
+      "type": "state",
+      "common": {
+        "name": "Go to position as HomeKit value",
+        "role": "state",
+        "type": "number",
+        "write": true,
+        "read": true,
+        "states": {
+          "0": "unlock/unsecured",
+          "1": "lock/secured"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "lockMotor.simpleLockUnlock",
+      "type": "state",
+      "common": {
+        "name": "False = lock, True = unlock",
+        "role": "state",
+        "type": "boolean",
+        "write": true,
+        "read": true
+      },
+      "native": {}
+    },
+    {
       "_id": "lockStatus",
       "type": "channel",
       "common": {
