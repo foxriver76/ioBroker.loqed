@@ -56,6 +56,11 @@ class Loqed extends utils.Adapter {
       await this.setStateChangedAsync("info.connection", true, true);
       await this.setStateAsync("lockMotor.currentPosition", state, true);
       switch (state) {
+        case "OPEN":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", true, true);
+          break;
         case "DAY_LOCK":
           await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
           await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
@@ -73,6 +78,9 @@ class Loqed extends utils.Adapter {
       await this.setStateChangedAsync("info.connection", true, true);
       await this.setStateAsync("lockMotor.goToPosition", state, true);
       switch (state) {
+        case "OPEN":
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          break;
         case "DAY_LOCK":
           await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
           break;
@@ -108,6 +116,11 @@ class Loqed extends utils.Adapter {
       await this.setStateAsync("lockStatus.batteryPercentage", status.battery_percentage, true);
       await this.setStateAsync("lockMotor.currentPosition", status.bolt_state.toUpperCase(), true);
       switch (status.bolt_state.toUpperCase()) {
+        case "OPEN":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", true, true);
+          break;
         case "DAY_LOCK":
           await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
           await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);

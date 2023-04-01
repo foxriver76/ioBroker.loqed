@@ -64,6 +64,11 @@ class Loqed extends utils.Adapter {
             await this.setStateAsync('lockMotor.currentPosition', state, true);
 
             switch (state) {
+                case 'OPEN':
+                    await this.setStateAsync('lockMotor.homekitLockCurrentState', 0, true);
+                    await this.setStateAsync('lockMotor.homekitLockTargetState', 0, true);
+                    await this.setStateAsync('lockMotor.simpleLockUnlock', true, true);
+                    break;
                 case 'DAY_LOCK':
                     await this.setStateAsync('lockMotor.homekitLockCurrentState', 0, true);
                     await this.setStateAsync('lockMotor.homekitLockTargetState', 0, true);
@@ -83,9 +88,13 @@ class Loqed extends utils.Adapter {
             await this.setStateAsync('lockMotor.goToPosition', state, true);
 
             switch (state) {
+                case 'OPEN':
+                    await this.setStateAsync('lockMotor.homekitLockTargetState', 0, true);
+                    //await this.setStateAsync('lockMotor.simpleLockUnlock', true, true); //if state is changed at this point we don't get the real lock/unlock state
+                    break;
                 case 'DAY_LOCK':
                     await this.setStateAsync('lockMotor.homekitLockTargetState', 0, true);
-                    //await this.setStateAsync('lockMotor.simpleLockUnlock', true, true); //if state is changed at this point wo don't get the real lock/unlock state
+                    //await this.setStateAsync('lockMotor.simpleLockUnlock', true, true); //if state is changed at this point we don't get the real lock/unlock state
                     break;
                 case 'NIGHT_LOCK':
                     await this.setStateAsync('lockMotor.homekitLockTargetState', 1, true);
@@ -131,6 +140,11 @@ class Loqed extends utils.Adapter {
             await this.setStateAsync('lockMotor.currentPosition', status.bolt_state.toUpperCase(), true);
 
             switch (status.bolt_state.toUpperCase()) {
+                case 'OPEN':
+                    await this.setStateAsync('lockMotor.homekitLockCurrentState', 0, true);
+                    await this.setStateAsync('lockMotor.homekitLockTargetState', 0, true);
+                    await this.setStateAsync('lockMotor.simpleLockUnlock', true, true);
+                    break;
                 case 'DAY_LOCK':
                     await this.setStateAsync('lockMotor.homekitLockCurrentState', 0, true);
                     await this.setStateAsync('lockMotor.homekitLockTargetState', 0, true);
