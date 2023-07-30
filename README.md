@@ -19,6 +19,9 @@ Control LOQED smart locks
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### 0.2.2 (2023-07-30)
+* (foxriver76) updated the library to fix unknown events
+
 ### 0.2.1 (2022-09-10)
 * (foxriver76) ensure library is updated
 
@@ -36,7 +39,7 @@ Control LOQED smart locks
 ## License
 MIT License
 
-Copyright (c) 2022 Moritz Heusinger <moritz.heusinger@gmail.com>
+Copyright (c) 2023 Moritz Heusinger <moritz.heusinger@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

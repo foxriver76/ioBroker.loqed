@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "loqed",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "updated the library to fix unknown events",
+        "de": "die bibliothek aktualisiert, um unbekannte ereignisse zu beheben",
+        "ru": "обновил библиотеку для исправления неизвестных событий",
+        "pt": "atualizou a biblioteca para corrigir eventos desconhecidos",
+        "nl": "de bibliotheek updaten om onbekende gebeurtenissen te repareren",
+        "fr": "mis à jour la bibliothèque pour réparer des événements inconnus",
+        "it": "aggiornato la libreria per fissare eventi sconosciuti",
+        "es": "actualizado la biblioteca para fijar eventos desconocidos",
+        "pl": "zaktualizował bibliotekę w celu naprawy nieznanych zdarzeń",
+        "uk": "оновлено бібліотеку для фіксації невідомої події",
+        "zh-cn": "更新了图书馆,以查明不明事件"
+      },
       "0.2.1": {
         "en": "ensure library is updated",
         "de": "sicherstellen, dass die bibliothek aktualisiert wird",
