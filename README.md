@@ -19,8 +19,7 @@ Control LOQED smart locks
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.2.3 (2023-08-07)
 * (foxriver76) updated the library to fix unknown events (closes #5)
 
 ### 0.2.2 (2023-07-30)
