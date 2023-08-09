@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "loqed",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "added state for local key id (closes #6)",
+        "de": "hinzugefügter zustand für lokale schlüssel id (schließt #6)",
+        "ru": "добавлено состояние для локального ключа id (closes #6)",
+        "pt": "estado adicionado para id de chave local (fecha #6)",
+        "nl": "vertaling:",
+        "fr": "état ajouté pour clé locale id (fermetures #6)",
+        "it": "stato aggiunto per chiave locale id (chiusura #6)",
+        "es": "estado añadido para id clave local (cerca #6)",
+        "pl": "dodano stan dla klucza lokalnego (zamknięty #6)",
+        "uk": "додано стан для локальної клавіатури (закривається no6)",
+        "zh-cn": "地方重要警示(第6号)的附加说明"
+      },
       "0.2.3": {
         "en": "updated the library to fix unknown events (closes #5)",
         "de": "aktualisiert die bibliothek, um unbekannte ereignisse zu beheben (schließt #5)",
@@ -66,18 +79,6 @@
         "zh-cn": "疫苗优化"
       },
       "0.1.1": {
-        "en": "initial release",
-        "de": "erstausstrahlung",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "zh-cn": "初步释放"
-      },
-      "0.1.0": {
         "en": "initial release",
         "de": "erstausstrahlung",
         "ru": "начальный выпуск",

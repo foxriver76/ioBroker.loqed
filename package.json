@@ -1,6 +1,6 @@
 {
   "name": "iobroker.loqed",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Control LOQED smart locks",
   "engines": {
     "node": ">=16.0.0"
