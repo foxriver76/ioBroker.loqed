@@ -19,6 +19,10 @@ Control LOQED smart locks
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (foxriver76) added state for local key id (closes #6)
+
 ### 0.2.3 (2023-08-07)
 * (foxriver76) updated the library to fix unknown events (closes #5)
 

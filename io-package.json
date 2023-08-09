@@ -185,6 +185,18 @@
       "native": {}
     },
     {
+      "_id": "lockMotor.localKeyId",
+      "type": "state",
+      "common": {
+        "name": "Key ID of the action initiator",
+        "role": "value",
+        "type": "number",
+        "write": false,
+        "read": true
+      },
+      "native": {}
+    },
+    {
       "_id": "lockMotor.currentPosition",
       "type": "state",
       "common": {
@@ -232,7 +244,7 @@
       "type": "state",
       "common": {
         "name": "Battery level",
-        "role": "level",
+        "role": "value.battery",
         "type": "number",
         "write": false,
         "read": true,
