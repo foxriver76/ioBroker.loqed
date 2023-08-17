@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "loqed",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "updated the library to fix unknown events (closes #7)",
+        "de": "aktualisiert die bibliothek, um unbekannte ereignisse zu beheben (schließt #7)",
+        "ru": "обновил библиотеку, чтобы исправить неизвестные события (заметки #7)",
+        "pt": "atualizou a biblioteca para corrigir eventos desconhecidos (fecha #7)",
+        "nl": "de bibliotheek updatete om onbekende gebeurtenissen te repareren",
+        "fr": "mis à jour la bibliothèque pour corriger des événements inconnus (ferme #7)",
+        "it": "aggiornato la libreria per fissare eventi sconosciuti (chiude #7)",
+        "es": "actualizado la biblioteca para fijar eventos desconocidos (cerca #7)",
+        "pl": "zaktualizował bibliotekę do naprawy nieznanych zdarzeń (zamknięć #7)",
+        "uk": "оновлено бібліотеку для фіксації невідомої події (закриває #7)",
+        "zh-cn": "更新了图书馆,以安排不明事件(表7)。"
+      },
       "0.3.0": {
         "en": "added state for local key id (closes #6)",
         "de": "hinzugefügter zustand für lokale schlüssel id (schließt #6)",
@@ -77,18 +90,6 @@
         "es": "io-paquete optimizaciones",
         "pl": "optymalizacja io-package",
         "zh-cn": "疫苗优化"
-      },
-      "0.1.1": {
-        "en": "initial release",
-        "de": "erstausstrahlung",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "zh-cn": "初步释放"
       }
     },
     "titleLang": {
