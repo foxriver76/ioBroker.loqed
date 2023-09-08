@@ -51,11 +51,11 @@ class Loqed extends utils.Adapter {
     this.config.callbackUrl = `${this.config.callbackUrl}:${this.config.port}/`;
     await this.ensureWebhookRegistered();
     await this.syncStatus();
-    this.loqedClient.on("STATE_CHANGED", async (state) => {
-      this.log.info(`State changed to ${state}`);
+    this.loqedClient.on("STATE_CHANGED", async (event) => {
+      this.log.info(`State changed to ${event.val}`);
       await this.setStateChangedAsync("info.connection", true, true);
-      await this.setStateAsync("lockMotor.currentPosition", state, true);
-      switch (state) {
+      await this.setStateAsync("lockMotor.currentPosition", event.val, true);
+      switch (event.val) {
         case "OPEN":
           await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
           await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
@@ -73,11 +73,12 @@ class Loqed extends utils.Adapter {
           break;
       }
     });
-    this.loqedClient.on("GO_TO_STATE", async (state) => {
-      this.log.info(`Lock tries to go to ${state}`);
+    this.loqedClient.on("GO_TO_STATE", async (event) => {
+      this.log.info(`Lock tries to go to ${event.val} by key ${event.localKeyId}`);
       await this.setStateChangedAsync("info.connection", true, true);
-      await this.setStateAsync("lockMotor.goToPosition", state, true);
-      switch (state) {
+      await this.setStateAsync("lockMotor.localKeyId", event.localKeyId, true);
+      await this.setStateAsync("lockMotor.goToPosition", event.val, true);
+      switch (event.val) {
         case "OPEN":
           await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
           break;
@@ -89,14 +90,14 @@ class Loqed extends utils.Adapter {
           break;
       }
     });
-    this.loqedClient.on("BATTERY_LEVEL", async (level) => {
-      this.log.info(`Battery level received: ${level}`);
+    this.loqedClient.on("BATTERY_LEVEL", async (levelEvent) => {
+      this.log.info(`Battery level received: ${levelEvent.val}`);
       await this.setStateChangedAsync("info.connection", true, true);
-      await this.setStateAsync("lockStatus.batteryPercentage", level, true);
+      await this.setStateAsync("lockStatus.batteryPercentage", levelEvent.val, true);
     });
-    this.loqedClient.on("BLE_STRENGTH", async (level) => {
-      this.log.info(`BLE strength received: ${level}`);
-      await this.setStateAsync("info.connection", level !== -1, true);
+    this.loqedClient.on("BLE_STRENGTH", async (bleEvent) => {
+      this.log.info(`BLE strength received: ${bleEvent.val}`);
+      await this.setStateAsync("info.connection", bleEvent.val !== -1, true);
     });
     this.loqedClient.on("UNKNOWN_EVENT", (data) => {
       this.log.warn(`Unknown event: ${JSON.stringify(data)}`);

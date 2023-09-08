@@ -41,11 +41,23 @@ Please note that this state doesn't get updated directly if you control the lock
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+## **WORK IN PROGRESS**
 
 * (Standarduser) Added synchronous states for HomeKit (yahka). Please note that HomeKit doesn't support the open-command, just lock and unlock (=secure/unsecure)
 * (Standarduser) Added simple binary state to lock or unlock (open-command not supported)
 * (Standarduser) Added some explanations to readme
+
+### 0.3.1 (2023-08-17)
+* (foxriver76) updated the library to fix unknown events (closes #7)
+
+### 0.3.0 (2023-08-09)
+* (foxriver76) added state for local key id (closes #6)
+
+### 0.2.3 (2023-08-07)
+* (foxriver76) updated the library to fix unknown events (closes #5)
+
+### 0.2.2 (2023-07-30)
+* (foxriver76) updated the library to fix unknown events
 
 ### 0.2.1 (2022-09-10)
 * (foxriver76) ensure library is updated
@@ -64,7 +76,7 @@ Please note that this state doesn't get updated directly if you control the lock
 ## License
 MIT License
 
-Copyright (c) 2022 Moritz Heusinger <moritz.heusinger@gmail.com>
+Copyright (c) 2023 Moritz Heusinger <moritz.heusinger@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

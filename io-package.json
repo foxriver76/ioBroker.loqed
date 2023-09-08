@@ -1,8 +1,60 @@
 {
   "common": {
     "name": "loqed",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "updated the library to fix unknown events (closes #7)",
+        "de": "aktualisiert die bibliothek, um unbekannte ereignisse zu beheben (schließt #7)",
+        "ru": "обновил библиотеку, чтобы исправить неизвестные события (заметки #7)",
+        "pt": "atualizou a biblioteca para corrigir eventos desconhecidos (fecha #7)",
+        "nl": "de bibliotheek updatete om onbekende gebeurtenissen te repareren",
+        "fr": "mis à jour la bibliothèque pour corriger des événements inconnus (ferme #7)",
+        "it": "aggiornato la libreria per fissare eventi sconosciuti (chiude #7)",
+        "es": "actualizado la biblioteca para fijar eventos desconocidos (cerca #7)",
+        "pl": "zaktualizował bibliotekę do naprawy nieznanych zdarzeń (zamknięć #7)",
+        "uk": "оновлено бібліотеку для фіксації невідомої події (закриває #7)",
+        "zh-cn": "更新了图书馆,以安排不明事件(表7)。"
+      },
+      "0.3.0": {
+        "en": "added state for local key id (closes #6)",
+        "de": "hinzugefügter zustand für lokale schlüssel id (schließt #6)",
+        "ru": "добавлено состояние для локального ключа id (closes #6)",
+        "pt": "estado adicionado para id de chave local (fecha #6)",
+        "nl": "vertaling:",
+        "fr": "état ajouté pour clé locale id (fermetures #6)",
+        "it": "stato aggiunto per chiave locale id (chiusura #6)",
+        "es": "estado añadido para id clave local (cerca #6)",
+        "pl": "dodano stan dla klucza lokalnego (zamknięty #6)",
+        "uk": "додано стан для локальної клавіатури (закривається no6)",
+        "zh-cn": "地方重要警示(第6号)的附加说明"
+      },
+      "0.2.3": {
+        "en": "updated the library to fix unknown events (closes #5)",
+        "de": "aktualisiert die bibliothek, um unbekannte ereignisse zu beheben (schließt #5)",
+        "ru": "обновил библиотеку, чтобы исправить неизвестные события (заметки #5)",
+        "pt": "atualizou a biblioteca para corrigir eventos desconhecidos (fecha #5)",
+        "nl": "vertaling:",
+        "fr": "mis à jour la bibliothèque pour corriger des événements inconnus (ferme #5)",
+        "it": "aggiornato la libreria per fissare eventi sconosciuti (chiude #5)",
+        "es": "actualizado la biblioteca para arreglar eventos desconocidos (cerca #5)",
+        "pl": "zaktualizował bibliotekę w celu naprawy nieznanych zdarzeń (zamknięć #5)",
+        "uk": "оновлено бібліотеку для фіксації невідомої події (закриває #5)",
+        "zh-cn": "更新了图书馆以固定身份不明事件(第5号)"
+      },
+      "0.2.2": {
+        "en": "updated the library to fix unknown events",
+        "de": "die bibliothek aktualisiert, um unbekannte ereignisse zu beheben",
+        "ru": "обновил библиотеку для исправления неизвестных событий",
+        "pt": "atualizou a biblioteca para corrigir eventos desconhecidos",
+        "nl": "de bibliotheek updaten om onbekende gebeurtenissen te repareren",
+        "fr": "mis à jour la bibliothèque pour réparer des événements inconnus",
+        "it": "aggiornato la libreria per fissare eventi sconosciuti",
+        "es": "actualizado la biblioteca para fijar eventos desconocidos",
+        "pl": "zaktualizował bibliotekę w celu naprawy nieznanych zdarzeń",
+        "uk": "оновлено бібліотеку для фіксації невідомої події",
+        "zh-cn": "更新了图书馆,以查明不明事件"
+      },
       "0.2.1": {
         "en": "ensure library is updated",
         "de": "sicherstellen, dass die bibliothek aktualisiert wird",
@@ -38,42 +90,6 @@
         "es": "io-paquete optimizaciones",
         "pl": "optymalizacja io-package",
         "zh-cn": "疫苗优化"
-      },
-      "0.1.1": {
-        "en": "initial release",
-        "de": "erstausstrahlung",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "zh-cn": "初步释放"
-      },
-      "0.1.0": {
-        "en": "initial release",
-        "de": "erstausstrahlung",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "zh-cn": "初步释放"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版"
       }
     },
     "titleLang": {
@@ -171,6 +187,18 @@
       "native": {}
     },
     {
+      "_id": "lockMotor.localKeyId",
+      "type": "state",
+      "common": {
+        "name": "Key ID of the action initiator",
+        "role": "value",
+        "type": "number",
+        "write": false,
+        "read": true
+      },
+      "native": {}
+    },
+    {
       "_id": "lockMotor.currentPosition",
       "type": "state",
       "common": {
@@ -264,7 +292,7 @@
       "type": "state",
       "common": {
         "name": "Battery level",
-        "role": "level",
+        "role": "value.battery",
         "type": "number",
         "write": false,
         "read": true,
