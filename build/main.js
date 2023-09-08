@@ -38,6 +38,8 @@ class Loqed extends utils.Adapter {
       return;
     }
     this.subscribeStates("lockMotor.goToPosition");
+    this.subscribeStates("lockMotor.homekitLockTargetState");
+    this.subscribeStates("lockMotor.simpleLockUnlock");
     this.config.port = await this.getPortAsync(this.config.port);
     this.loqedClient = new import_loqed_api.LOQED({
       bridgeKey: loqedConfig.bridge_key,
@@ -53,12 +55,40 @@ class Loqed extends utils.Adapter {
       this.log.info(`State changed to ${event.val}`);
       await this.setStateChangedAsync("info.connection", true, true);
       await this.setStateAsync("lockMotor.currentPosition", event.val, true);
+      switch (event.val) {
+        case "OPEN":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", true, true);
+          break;
+        case "DAY_LOCK":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", true, true);
+          break;
+        case "NIGHT_LOCK":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 1, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 1, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", false, true);
+          break;
+      }
     });
     this.loqedClient.on("GO_TO_STATE", async (event) => {
       this.log.info(`Lock tries to go to ${event.val} by key ${event.localKeyId}`);
       await this.setStateChangedAsync("info.connection", true, true);
-      await this.setStateAsync("lockMotor.goToPosition", event.val, true);
       await this.setStateAsync("lockMotor.localKeyId", event.localKeyId, true);
+      await this.setStateAsync("lockMotor.goToPosition", event.val, true);
+      switch (event.val) {
+        case "OPEN":
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          break;
+        case "DAY_LOCK":
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          break;
+        case "NIGHT_LOCK":
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 1, true);
+          break;
+      }
     });
     this.loqedClient.on("BATTERY_LEVEL", async (levelEvent) => {
       this.log.info(`Battery level received: ${levelEvent.val}`);
@@ -86,6 +116,23 @@ class Loqed extends utils.Adapter {
       await this.setStateAsync("info.connection", !!status.lock_online, true);
       await this.setStateAsync("lockStatus.batteryPercentage", status.battery_percentage, true);
       await this.setStateAsync("lockMotor.currentPosition", status.bolt_state.toUpperCase(), true);
+      switch (status.bolt_state.toUpperCase()) {
+        case "OPEN":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", true, true);
+          break;
+        case "DAY_LOCK":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 0, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 0, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", true, true);
+          break;
+        case "NIGHT_LOCK":
+          await this.setStateAsync("lockMotor.homekitLockCurrentState", 1, true);
+          await this.setStateAsync("lockMotor.homekitLockTargetState", 1, true);
+          await this.setStateAsync("lockMotor.simpleLockUnlock", false, true);
+          break;
+      }
     } catch (e) {
       this.log.error(`Could not sync status: ${e.message}`);
     }
@@ -118,36 +165,88 @@ class Loqed extends utils.Adapter {
     }
   }
   async onStateChange(id, state) {
-    if (!state || state.ack || !state.val || !this.loqedClient) {
+    if (!state || state.ack || !this.loqedClient) {
       return;
     }
-    switch (state.val) {
-      case "DAY_LOCK":
-        this.log.debug("Latch lock");
-        try {
-          await this.loqedClient.latchLock();
-        } catch (e) {
-          this.log.error(`Could not latch lock: ${e.message}`);
+    this.log.debug("changed state: " + id);
+    const dp = id.split(".").slice(2).join(".");
+    switch (dp) {
+      case "lockMotor.goToPosition":
+        switch (state.val) {
+          case "DAY_LOCK":
+            this.log.debug("Latch lock");
+            try {
+              await this.loqedClient.latchLock();
+            } catch (e) {
+              this.log.error(`Could not latch lock: ${e.message}`);
+            }
+            break;
+          case "NIGHT_LOCK":
+            this.log.debug("Lock lock");
+            try {
+              await this.loqedClient.lockLock();
+            } catch (e) {
+              this.log.error(`Could not lock lock: ${e.message}`);
+            }
+            break;
+          case "OPEN":
+            this.log.debug("Open lock");
+            try {
+              await this.loqedClient.openLock();
+            } catch (e) {
+              this.log.error(`Could not open lock: ${e.message}`);
+            }
+            break;
+          default:
+            this.log.warn(`Unknown state change: "${id}": ${state.val}`);
         }
         break;
-      case "NIGHT_LOCK":
-        this.log.debug("Lock lock");
-        try {
-          await this.loqedClient.lockLock();
-        } catch (e) {
-          this.log.error(`Could not lock lock: ${e.message}`);
+      case "lockMotor.homekitLockTargetState":
+        switch (state.val) {
+          case 0:
+            this.log.debug("Latch lock");
+            try {
+              await this.loqedClient.latchLock();
+            } catch (e) {
+              this.log.error(`Could not latch lock: ${e.message}`);
+            }
+            break;
+          case 1:
+            this.log.debug("Lock lock");
+            try {
+              await this.loqedClient.lockLock();
+            } catch (e) {
+              this.log.error(`Could not lock lock: ${e.message}`);
+            }
+            break;
+          default:
+            this.log.warn(`Unknown state change: "${id}": ${state.val}`);
         }
         break;
-      case "OPEN":
-        this.log.debug("Open lock");
-        try {
-          await this.loqedClient.openLock();
-        } catch (e) {
-          this.log.error(`Could not open lock: ${e.message}`);
+      case "lockMotor.simpleLockUnlock":
+        switch (state.val) {
+          case true:
+            this.log.debug("Latch lock");
+            try {
+              await this.loqedClient.latchLock();
+            } catch (e) {
+              this.log.error(`Could not latch lock: ${e.message}`);
+            }
+            break;
+          case false:
+            this.log.debug("Lock lock");
+            try {
+              await this.loqedClient.lockLock();
+            } catch (e) {
+              this.log.error(`Could not lock lock: ${e.message}`);
+            }
+            break;
+          default:
+            this.log.warn(`Unknown state change: "${id}": ${state.val}`);
         }
         break;
       default:
-        this.log.warn(`Unknown state change: "${id}": ${state.val}`);
+        this.log.warn(`State has not to be changed: "${id}": ${state.val}`);
     }
   }
 }

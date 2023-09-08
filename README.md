@@ -14,11 +14,39 @@
 
 Control LOQED smart locks
 
+Control the LOQED smart lock with state `lockMotor.goToPosition`:
+- `NIGHT_LOCK` to lock
+- `DAY_LOCK` to unlock
+- `OPEN` to release the door
+
+Get the current position from state `lockMotor.currentPosition`.
+
+There are additional states to use the lock with HomeKit. In case of your door has a lever outside and this is configured in your lock they may work different to the states above, because the LOQED API sends the OPEN feedback instead of DAY_LOCK if the LOQED app is used to unlock.
+
+To use the lock with HomeKit (yahka) add a new device of category "door lock", add the service "LockMechanism" to this device and configure the states as follows:
+`LockCurrentState` => `loqed.0.lockMotor.homekitLockCurrentState`
+`LockTargetState` => `loqed.0.lockMotor.homekitLockTargetState`
+
+Then add the service "Battery" to this device and configure the states as follows:
+`BatteryLevel` => `loqed.0.lockStatus.batteryPercentage`
+
+Finally the lock can be controlled by setting true or false to state `lockMotor.simpleLockUnlock`.
+- `false` to lock
+- `true` to unlock
+
+Please note that this state doesn't get updated directly if you control the lock with one of the other states to avoid misunderstandings. If the lock is locked and get's unlocked with one of the other control states the state `lockMotor.simpleLockUnlock` will not come true until the lock reports to be open.
+
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+## **WORK IN PROGRESS**
+
+* (Standarduser) Added synchronous states for HomeKit (yahka). Please note that HomeKit doesn't support the open-command, just lock and unlock (=secure/unsecure)
+* (Standarduser) Added simple binary state to lock or unlock (open-command not supported)
+* (Standarduser) Added some explanations to readme
+
 ### 0.3.1 (2023-08-17)
 * (foxriver76) updated the library to fix unknown events (closes #7)
 
