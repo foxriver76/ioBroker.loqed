@@ -132,6 +132,7 @@
     "extIcon": "https://raw.githubusercontent.com/foxriver76/ioBroker.loqed/main/admin/loqed.png",
     "readme": "https://github.com/foxriver76/ioBroker.loqed/blob/main/README.md",
     "loglevel": "info",
+    "tier": 2,
     "mode": "daemon",
     "type": "hardware",
     "compact": true,
