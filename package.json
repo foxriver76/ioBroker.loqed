@@ -12,6 +12,7 @@
   "homepage": "https://github.com/foxriver76/ioBroker.loqed",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
     "LOQED",
     "smart lock",
     "alarm"
