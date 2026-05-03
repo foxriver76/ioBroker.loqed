@@ -45,6 +45,8 @@ Control LOQED smart locks
 ### 0.1.1 (2022-09-09)
 * (foxriver76) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
