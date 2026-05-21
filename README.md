@@ -19,6 +19,10 @@ Control LOQED smart locks
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 0.3.1 (2023-08-17)
 * (foxriver76) updated the library to fix unknown events (closes #7)
 
